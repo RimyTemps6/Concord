@@ -8,10 +8,13 @@ service cloud.firestore {
 
     match /users/{uid} {
       allow read: if signedIn();
+      // O campo "admin" só pode ser definido pelo console do Firebase, nunca pelo site.
       allow create: if signedIn() && request.auth.uid == uid
+        && !('admin' in request.resource.data)
         && request.resource.data.token == get(/databases/$(database)/documents/config/signup).data.code;
       allow update: if signedIn() && request.auth.uid == uid
-        && request.resource.data.publicId == resource.data.publicId;
+        && request.resource.data.publicId == resource.data.publicId
+        && request.resource.data.get('admin', false) == resource.data.get('admin', false);
     }
 
     match /chats/{chatId} {

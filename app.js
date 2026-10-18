@@ -30,10 +30,14 @@ $("#fUp").onsubmit = async e => {
       catch (x) { if (x.code !== "auth/email-already-in-use") throw x; }
     }
     try { await setDoc(doc(db, "users", cred.user.uid), {name, publicId: id, token, createdAt: serverTimestamp()}); }
-    catch { await cred.user.delete(); throw {code: "token"}; }   // token errado: o servidor recusa
+    catch (x) { await cred.user.delete(); throw {code: x.code === "permission-denied" ? "token" : (x.code || x.message)}; }
     await enter(cred.user);
   } catch (x) {
-    err(x.code === "token" ? "Token inválido." : x.code === "auth/weak-password" ? "A senha precisa ter 6 ou mais caracteres." : "Não foi possível criar a conta.");
+    err(x.code === "token" ? "Token inválido, ou as regras do Firestore ainda não foram publicadas."
+      : x.code === "auth/weak-password" ? "A senha precisa ter 6 ou mais caracteres."
+      : x.code === "auth/operation-not-allowed" ? "Ative o login por E-mail/senha no Firebase (Authentication)."
+      : x.code === "auth/unauthorized-domain" ? "Adicione este domínio em Authentication > Configurações > Domínios autorizados."
+      : "Erro: " + (x.code || x.message));
   }
   busy = false;
 };
@@ -52,7 +56,7 @@ async function enter(u) {
   if (!s.exists()) { await signOut(auth); return err("Conta sem perfil."); }
   me = {uid: u.uid, ...s.data()};
   $("#auth").hidden = true; $("#app").hidden = false;
-  $("#meName").textContent = me.name; $("#meId").textContent = "ID: " + me.publicId;
+  $("#meName").textContent = me.name + (me.admin ? " ★ admin" : ""); $("#meId").textContent = "ID: " + me.publicId;
   unsubChats = onSnapshot(query(collection(db, "chats"), where("members", "array-contains", me.uid)), renderChats);
 }
 function leave() {
