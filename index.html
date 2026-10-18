@@ -24,23 +24,39 @@
     <button>Criar conta</button>
   </form>
   <p id="err"></p>
+  <button id="bTheme0" class="ghost">🌓 Tema claro/escuro</button>
 </section>
 
 <section id="app" hidden>
+  <nav id="rail">
+    <button data-t="chats" class="on" title="Conversas">💬</button>
+    <button data-t="groups" title="Grupos">👥</button>
+    <button data-t="status" title="Status">🟢</button>
+    <span class="sp"></span>
+    <button id="bTheme" title="Tema claro/escuro">🌓</button>
+    <button id="bOut" title="Sair">🚪</button>
+  </nav>
   <aside id="list">
     <header>
-      <div><b id="meName"></b><small id="meId"></small></div>
-      <button id="bQr">Meu QR</button><button id="bAdd">+</button><button id="bOut">Sair</button>
+      <div id="meAv"></div>
+      <div class="grow"><b id="meName"></b><small id="meId"></small></div>
+      <button id="bQr" title="Meu QR">QR</button>
+      <button id="bAdd" class="pri">＋</button>
     </header>
     <div id="chats"></div>
   </aside>
   <main id="chat">
-    <header><button id="bBack">←</button><b id="chName">Escolha uma conversa</b></header>
+    <header>
+      <button id="bBack">←</button>
+      <div id="chHead" class="hd grow"><b>Escolha uma conversa</b></div>
+      <button id="bMem" hidden>＋ Pessoa</button>
+    </header>
     <div id="msgs"></div>
-    <form id="fSend"><input id="txt" autocomplete="off" placeholder="Mensagem"><button>Enviar</button></form>
+    <form id="fSend"><input id="txt" autocomplete="off" placeholder="Digite uma mensagem"><button>Enviar</button></form>
   </main>
 </section>
 
+<div id="sv" hidden></div>
 <div id="modal" hidden><div class="box" id="box"></div></div>
 <script type="module" src="app.js"></script>
 </body>
