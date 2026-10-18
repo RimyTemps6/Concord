@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conecta</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+</head>
+<body>
+<section id="auth">
+  <h1>Conecta</h1>
+  <div class="tabs"><button id="tabIn" class="on">Entrar</button><button id="tabUp">Criar conta</button></div>
+  <form id="fIn">
+    <input id="inId" placeholder="ID da conta" maxlength="8" autocomplete="username" required>
+    <input id="inPw" type="password" placeholder="Senha" autocomplete="current-password" required>
+    <button>Entrar</button>
+  </form>
+  <form id="fUp" hidden>
+    <input id="upName" placeholder="Seu nome" maxlength="20" required>
+    <input id="upToken" placeholder="Token de acesso" inputmode="numeric" required>
+    <input id="upPw" type="password" placeholder="Senha (mínimo 6 caracteres)" autocomplete="new-password" required>
+    <button>Criar conta</button>
+  </form>
+  <p id="err"></p>
+</section>
+
+<section id="app" hidden>
+  <aside id="list">
+    <header>
+      <div><b id="meName"></b><small id="meId"></small></div>
+      <button id="bQr">Meu QR</button><button id="bAdd">+</button><button id="bOut">Sair</button>
+    </header>
+    <div id="chats"></div>
+  </aside>
+  <main id="chat">
+    <header><button id="bBack">←</button><b id="chName">Escolha uma conversa</b></header>
+    <div id="msgs"></div>
+    <form id="fSend"><input id="txt" autocomplete="off" placeholder="Mensagem"><button>Enviar</button></form>
+  </main>
+</section>
+
+<div id="modal" hidden><div class="box" id="box"></div></div>
+<script type="module" src="app.js"></script>
+</body>
+</html>

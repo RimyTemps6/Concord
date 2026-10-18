@@ -1,0 +1,33 @@
+*{box-sizing:border-box}
+:root{--bg:#f3f4f8;--bg2:#fff;--tx:#1b1d26;--mut:#667085;--acc:#5b6cff;--bd:#d8dce6}
+@media(prefers-color-scheme:dark){:root{--bg:#1a1b22;--bg2:#252731;--tx:#e9eaf1;--mut:#9a9db0;--bd:#353846}}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--tx);font:15px system-ui,sans-serif}
+button,input{font:inherit;color:inherit}
+button{background:var(--bd);border:0;border-radius:8px;padding:8px 12px;cursor:pointer}
+input{width:100%;padding:10px;border:1px solid var(--bd);border-radius:8px;background:var(--bg2)}
+form button,#go{background:var(--acc);color:#fff}
+[hidden]{display:none!important}
+#auth{max-width:340px;margin:8vh auto;padding:20px;display:grid;gap:12px}
+#auth form{display:grid;gap:10px}
+.tabs{display:flex;gap:6px}.tabs button{flex:1}.tabs .on{background:var(--acc);color:#fff}
+#err{color:#e5484d;min-height:1em;margin:0}
+#app{display:grid;grid-template-columns:300px 1fr;height:100%}
+#list,#chat{display:flex;flex-direction:column;min-height:0;background:var(--bg2)}
+#list{border-right:1px solid var(--bd)}
+header{display:flex;gap:6px;align-items:center;padding:10px;border-bottom:1px solid var(--bd)}
+header div{flex:1;display:grid}
+small,.empty{color:var(--mut)}
+#chats{overflow:auto;padding:6px}
+.ci{display:grid;width:100%;text-align:left;background:none;margin-bottom:2px}
+.ci:hover{background:var(--bg)}
+.ci small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#msgs{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:6px;background:var(--bg)}
+.m{max-width:75%;padding:8px 12px;border-radius:14px;background:var(--bg2);align-self:flex-start;overflow-wrap:anywhere}
+.m.me{background:var(--acc);color:#fff;align-self:flex-end}
+#fSend{display:flex;gap:8px;padding:10px;border-top:1px solid var(--bd)}
+#bBack{display:none}
+#modal{position:fixed;inset:0;background:#0009;display:grid;place-items:center;padding:12px}
+.box{background:var(--bg2);border-radius:14px;padding:18px;width:min(340px,100%);display:grid;gap:10px;justify-items:center;text-align:center}
+.box h3{margin:0}#reader{width:100%}
+@media(max-width:700px){#app{grid-template-columns:1fr}#chat{display:none}#app.inchat #list{display:none}#app.inchat #chat{display:flex}#bBack{display:inline-block}}
