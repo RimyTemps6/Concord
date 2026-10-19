@@ -2,18 +2,26 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<meta name="theme-color" content="#00a884">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Conecta">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Conecta</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 </head>
 <body>
 <section id="auth">
   <h1>Conecta</h1>
   <div class="tabs"><button id="tabIn" class="on">Entrar</button><button id="tabUp">Criar conta</button></div>
   <form id="fIn">
-    <input id="inId" placeholder="ID da conta" maxlength="8" autocomplete="username" required>
+    <input id="inId" placeholder="ID da conta" maxlength="8" autocomplete="username" autocapitalize="characters" required>
     <input id="inPw" type="password" placeholder="Senha" autocomplete="current-password" required>
     <button>Entrar</button>
   </form>
@@ -25,6 +33,7 @@
   </form>
   <p id="err"></p>
   <button id="bTheme0" class="ghost">🌓 Tema claro/escuro</button>
+  <button class="ghost inst">📲 Instalar app</button>
 </section>
 
 <section id="app" hidden>
@@ -34,12 +43,12 @@
     <button data-t="status" title="Status">🟢</button>
     <span class="sp"></span>
     <button id="bTheme" title="Tema claro/escuro">🌓</button>
+    <button id="bProf" title="Meu perfil">👤</button>
     <button id="bOut" title="Sair">🚪</button>
   </nav>
   <aside id="list">
     <header>
-      <div id="meAv"></div>
-      <div class="grow"><b id="meName"></b><small id="meId"></small></div>
+      <div id="me" class="hd grow"><div id="meAv"></div><div class="grow"><b id="meName"></b><small id="meId"></small></div></div>
       <button id="bQr" title="Meu QR">QR</button>
       <button id="bAdd" class="pri">＋</button>
     </header>
@@ -49,6 +58,8 @@
     <header>
       <button id="bBack">←</button>
       <div id="chHead" class="hd grow"><b>Escolha uma conversa</b></div>
+      <button id="bCall" title="Chamada de voz" hidden>📞</button>
+      <button id="bVid" title="Chamada de vídeo" hidden>🎥</button>
       <button id="bMem" hidden>＋ Pessoa</button>
     </header>
     <div id="msgs"></div>
@@ -58,6 +69,26 @@
 
 <div id="sv" hidden></div>
 <div id="modal" hidden><div class="box" id="box"></div></div>
+
+<!-- Chamada recebida -->
+<div id="inc" hidden>
+  <div id="incAv"></div>
+  <b id="incT"></b>
+  <small id="incK"></small>
+  <div class="incb"><button id="incNo" class="end">📞</button><button id="incYes" class="ok">📞</button></div>
+</div>
+
+<!-- Chamada em andamento -->
+<div id="call" hidden>
+  <video id="rv" autoplay playsinline></video>
+  <video id="lv" autoplay playsinline muted></video>
+  <div id="cwho"></div>
+  <div id="cbar">
+    <button id="cMute" title="Microfone">🎤</button>
+    <button id="cCam" title="Câmera">📷</button>
+    <button id="cEnd" class="end" title="Desligar">📞</button>
+  </div>
+</div>
 <script type="module" src="app.js"></script>
 </body>
 </html>
